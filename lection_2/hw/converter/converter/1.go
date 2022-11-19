@@ -1,31 +1,31 @@
 package converter
 
+// A Converter containing a number translation method
 type Converter interface {
 	IntToRoman(number int) string
 }
 
+// Contains values for translation from one number system to another
 type converter struct {
 	digits  []int
 	symbols []string
 }
 
-// IntToRoman метод преобразования числа из десятичной системы в римскую
+// IntToRoman takes a number from the decimal system and returns a string in Roman
 func (c *converter) IntToRoman(number int) string {
 	var roman string
-	// цикл по словарю
+	// While long as the number is greater than or equal to the value from the slice
+	// we subtract this value and add the corresponding Roman symbol
 	for idx, digit := range c.digits {
-		// пока число больше или равно значению из словаря
 		for number >= digit {
-			// вычитаем значение из числа
 			number -= digit
-			// добавляем символ
 			roman += c.symbols[idx]
 		}
 	}
 	return roman
-
 }
 
+// NewConverter Interface constructor
 func NewConverter(values []int, symbols []string) Converter {
 	return &converter{values, symbols}
 }
